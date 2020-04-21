@@ -42,7 +42,7 @@ simulate_data = function(n_species=1, n_abiotic_vars=4, n_timepoints=5, n_plots=
     effect_variance = 1.0
     ef_variance_over_time = 0.4
     ef_variance_across_plots = 5.0
-    ef_variance_across_subplots = 1.0
+    ef_variance_across_subplots = 0.3
 
     ## Environmental Factors
     covariance_mat = matrix(rnorm(n_abiotic_vars*n_abiotic_vars,sd=environmental_factor_covariance), nrow=n_abiotic_vars, ncol=n_abiotic_vars)
@@ -67,7 +67,7 @@ simulate_data = function(n_species=1, n_abiotic_vars=4, n_timepoints=5, n_plots=
                 for (t in 1:n_timepoints){
                     
                     # additive noise for subplot and time
-                    ef_vals_in_the_here_and_now = mean_ef_this_plot + rnorm(n_abiotic_vars, sd=ef_variance_over_time) 
+                    ef_vals_in_the_here_and_now = mean_ef_this_plot + rnorm(n_abiotic_vars, sd=ef_variance_over_time) + rnorm(n_abiotic_vars, sd=ef_variance_across_subplots)
                     
                     v = sum(diag(ef_vals_in_the_here_and_now) %*% beta) + alpha
         
