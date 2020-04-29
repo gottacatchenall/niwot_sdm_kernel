@@ -1,4 +1,16 @@
-simulate_data = function(n_species=1, n_abiotic_vars=4, n_timepoints=5, n_plots=5, n_subplots_per_plot=20){
+simulate_data = function(
+    n_species=1, 
+    n_abiotic_vars=4, 
+    n_timepoints=5, 
+    n_plots=5, 
+    n_subplots_per_plot=20,
+    environmental_factor_variance = 0.5,
+    environmental_factor_covariance  = 0.4,
+    effect_variance = 1.0,
+    ef_variance_over_time = 0.4,
+    ef_variance_across_plots = 5.0,
+    ef_variance_across_subplots = 0.3
+){
     
     #  ========================================
     #   setup fake dataframe 
@@ -17,8 +29,7 @@ simulate_data = function(n_species=1, n_abiotic_vars=4, n_timepoints=5, n_plots=
     
     
     # what is happening here? 
-    #
-    #  we will model the mean true pres/abs  
+    # 
     #  
     #  strength of effect, beta_v for each env variable
     #  beta_v from normal(0, sigma_str) where sigma_str is size of effect variable
@@ -36,13 +47,6 @@ simulate_data = function(n_species=1, n_abiotic_vars=4, n_timepoints=5, n_plots=
     #  
     #  Occupancy_i(t) ~ bernoulli(p_i) 
     
-    
-    environmental_factor_variance = 0.5
-    environmental_factor_covariance  = 0.4
-    effect_variance = 1.0
-    ef_variance_over_time = 0.4
-    ef_variance_across_plots = 5.0
-    ef_variance_across_subplots = 0.3
 
     ## Environmental Factors
     covariance_mat = matrix(rnorm(n_abiotic_vars*n_abiotic_vars,sd=environmental_factor_covariance), nrow=n_abiotic_vars, ncol=n_abiotic_vars)
